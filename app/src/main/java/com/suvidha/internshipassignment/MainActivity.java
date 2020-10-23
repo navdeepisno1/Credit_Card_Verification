@@ -351,7 +351,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     {
         int l = creditCardNumber.length();
         int luhnSum = 0;
-        for(int i=0;i<l;i++)
+        for(int i=l-1;i>=0;i--)
         {
             String s = creditCardNumber.substring(i,i+1);
             if(i%2==0)
