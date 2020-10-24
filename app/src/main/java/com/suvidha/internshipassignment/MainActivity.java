@@ -347,33 +347,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return cardType;
     }
 
-    private boolean checkCreditCardNumber(String creditCardNumber)
+    private boolean checkCreditCardNumber(String str)
     {
-        int l = creditCardNumber.length();
-        int luhnSum = 0;
-        for(int i=l-1;i>=0;i--)
-        {
-            String s = creditCardNumber.substring(i,i+1);
-            if(i%2==0)
-            {
-                int val = Integer.parseInt(s)*2;
-                if(val>9)
-                {
-                    int v0 = val%10;
-                    int v1 = val/10;
-                    luhnSum = luhnSum + v0 + v1;
-                }
-                else
-                {
-                    luhnSum = luhnSum + val;
-                }
-            }
-            else
-            {
-                luhnSum = luhnSum + Integer.parseInt(s);
-            }
+        
+        int[] ints = new int[str.length()];
+    for (int i = 0; i < str.length(); i++) {
+        ints[i] = Integer.parseInt(str.substring(i, i + 1));
+    }
+    for (int i = ints.length - 2; i >= 0; i = i - 2) {
+        int j = ints[i];
+        j = j * 2;
+        if (j > 9) {
+            j = j % 10 + 1;
         }
-        return luhnSum%10==0;
+        ints[i] = j;
+    }
+    int sum = 0;
+    for (int i = 0; i < ints.length; i++) {
+        sum += ints[i];
+    }
+    return (sum%10==0);
     }
 
     private void showPaymentSuccessDialog()
